@@ -6,7 +6,10 @@ interface InputProps {
   value?: string;
   placeholder?: string;
   classes?: string[];
+  type?: string;
   onTextChange?: (text: string) => void;
+  onFocusIn?: () => void;
+  onFocusOut?: () => void;
 }
 
 const Input: Component<InputProps> = (props) => (
@@ -14,10 +17,12 @@ const Input: Component<InputProps> = (props) => (
     class={getClassString([styles.input, ...(props.classes ?? [])])}
     value={props.value}
     placeholder={props.placeholder}
+    type={props.type}
     onInput={(e) => {
-      if (e.isComposing) return;
       props.onTextChange?.(e.currentTarget.value);
     }}
+    onFocusIn={props.onFocusIn}
+    onFocusOut={props.onFocusOut}
   />
 );
 

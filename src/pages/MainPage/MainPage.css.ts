@@ -59,16 +59,7 @@ export const sectionContainer = style({
   },
 });
 
-export const profilesContainer = style({
-  display: 'flex',
-  flexDirection: 'row',
-  columnGap: '20px',
-  rowGap: '20px',
-  flexWrap: 'wrap',
-  '@media': {
-    [MediaQuery.MOBILE]: {
-      columnGap: '8px',
-      rowGap: '12px',
-    },
-  },
+export const button = style({
+  width: '72px',
+  height: '32px',
 });

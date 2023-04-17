@@ -5,15 +5,26 @@ import { getClassString } from '../../utils/style';
 interface ProfileProps {
   nickname: string;
   profileUrl?: string;
+  classes?: string[];
+  profileClasses?: string[];
   onClick?: () => void;
 }
 
 const Profile: Component<ProfileProps> = (props) => (
-  <div class={styles.container} onClick={props.onClick}>
+  <div
+    class={getClassString([styles.container, ...(props.classes ?? [])])}
+    onClick={props.onClick}
+  >
     <Show
       when={!!props.profileUrl}
       fallback={
-        <div class={getClassString([styles.image, styles.blankImage])}>
+        <div
+          class={getClassString([
+            styles.image,
+            styles.blankImage,
+            ...(props.profileClasses ?? []),
+          ])}
+        >
           <svg
             width="24"
             height="24"
@@ -35,7 +46,7 @@ const Profile: Component<ProfileProps> = (props) => (
       }
     >
       <img
-        class={styles.image}
+        class={getClassString([styles.image, ...(props.profileClasses ?? [])])}
         src={props.profileUrl}
         alt={`profile image of ${props.nickname}`}
       />
