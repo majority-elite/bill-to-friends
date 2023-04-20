@@ -30,18 +30,20 @@ const ResultSection = () => {
 
   const infoByUser = () =>
     pickedUsers.map((user) => ({
-      userName: user.displayName,
       profileImageUrl: user.displayAvatarURL,
-      price: purchasedList.reduce(
-        (prev, cur) =>
-          cur.users.map((v) => v.userId).includes(user.userId) ||
-          cur.users[0]?.userId === 'all'
-            ? prev +
-              (cur.users[0]?.userId === 'all'
-                ? Math.ceil(cur.price / pickedUsers.length)
-                : cur.price)
-            : prev,
-        0,
+      userName: user.displayName,
+      price: Math.ceil(
+        purchasedList.reduce(
+          (prev, cur) =>
+            cur.users.map((v) => v.userId).includes(user.userId) ||
+            cur.users[0]?.userId === 'all'
+              ? prev +
+                (cur.users[0]?.userId === 'all'
+                  ? cur.price / pickedUsers.length
+                  : cur.price / cur.users.length)
+              : prev,
+          0,
+        ),
       ),
     }));
 

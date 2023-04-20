@@ -51,16 +51,18 @@ const MainPage = () => {
 
             const infoByUser = pickedUsers.map((user) => ({
               id: user.userId,
-              amount: purchasedList.reduce(
-                (prev, cur) =>
-                  cur.users.map((v) => v.userId).includes(user.userId) ||
-                  cur.users[0]?.userId === 'all'
-                    ? prev +
-                      (cur.users[0]?.userId === 'all'
-                        ? Math.ceil(cur.price / pickedUsers.length)
-                        : cur.price)
-                    : prev,
-                0,
+              amount: Math.ceil(
+                purchasedList.reduce(
+                  (prev, cur) =>
+                    cur.users.map((v) => v.userId).includes(user.userId) ||
+                    cur.users[0]?.userId === 'all'
+                      ? prev +
+                        (cur.users[0]?.userId === 'all'
+                          ? cur.price / pickedUsers.length
+                          : cur.price / cur.users.length)
+                      : prev,
+                  0,
+                ),
               ),
             }));
 
